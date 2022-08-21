@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*estilos del body*/
+body{
+    background-color: black;
+    font-family: 'Open Sans', sans-serif;
+
+}
+
+h2{
+    color: red;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+.container-fluid{
+    display: flex;
+    justify-content: end;
+}
+
+.navbar navbar-expand-lg navbar-light bg-light {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.navbar navbar-expand-lg navbar-light bg-light .navbar-brand {
+    margin-right: 20px;
+}
+
