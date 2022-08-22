@@ -19,7 +19,7 @@ if ((usuario == "Y") || (usuario =="y")) {
  */
 //actividad 3 escoger personaje
 
-let usuario = prompt ("Ingrese un numero");
+/* let usuario = prompt ("Ingrese un numero");
 
 
 if (usuario == 1){
@@ -32,4 +32,17 @@ if (usuario == 1){
     alert ("Escogiste a Homero");
 } else if (usuario == 5){
     alert ("Escogiste a Lisa");
-} 
+}  */
+
+
+// actividad 4 Presupuesto
+
+let numero = prompt ("Ingrese un numero");
+
+if ((numero >= 0) && (numero <=1000)) {
+    alert ("presupuesto bajo");
+}if ((numero >= 1001) && (numero <=3000)) {
+    alert ("Presupuesto medio");
+}else if (numero >3000) {
+    alert ("Presupuesto mayor");
+}
