@@ -3,7 +3,7 @@ let entrada = prompt ("Ingrese su nombre");
 let apellido = prompt ("Ingrese su apellido");
 
 alert ( `su nombre completo es` + " " +  entrada + " " + apellido);
-let jugadores = alert ("Nos divideremos en grupos para poder armar los grupos");
+let jugadores = alert ("Nos dividiremos en grupos para poder armar los grupos");
 let edad = prompt ("Ingrese su edad");
 
 if (edad <=14) {
