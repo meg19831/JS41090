@@ -58,8 +58,6 @@ switch (pelicula) {
 
 let saludo = " "; 
 function salir(saludo) {
-    
-    
     if (saludo === "ESC" && saludo === "esc"); {
     alert ("Pronto habrá más novedades. \n Para salir presione ESC ó esc");
     }
