@@ -14,7 +14,12 @@ body{
 h2{
     color: red;
     margin-left: 20px;
-    margin-top: 15px;
+    margin-top: 20px;
+}
+
+.logotipo{
+    display: flex;
+    justify-content:flex-start;
 }
 
 .container-fluid{
@@ -71,3 +76,17 @@ h2{
     border: none;
 }
 
+/* carrito de compras*/
+
+
+/*Estilos en la seccion formulario*/
+
+.formulario{
+    display: contents;
+    align-items: center;
+}
+
+/* Estilos en la seccion: peliculas*/
+h3{
+    margin-left: 20px;
+}

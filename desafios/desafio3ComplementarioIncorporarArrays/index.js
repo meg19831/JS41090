@@ -34,8 +34,8 @@ alert ("Bienvenido a NetMovie. Para continuar es necesario completar el registro
             alert ( `pagaste ${precio}`)
         }
     }
-    const usuario = new Usuario 
-    mostrarInfoUsuario ()
+    const usuario = new Usuario(nombre, apellido, correoElectronico, alias)
+    usuario.mostrarInfoUsuario ()
    
 
 /* A continuación se mostrará el menu, para ver las peliculas dispobibles, para comprar y pagar.*/
