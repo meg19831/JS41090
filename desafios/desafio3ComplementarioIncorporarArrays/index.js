@@ -108,28 +108,16 @@ class TodasLasPeliculas {
         this.genero=genero;
         this.duracion= duracion;
         this.idioma=idioma;
-        this.año=anio;
+        this.anio=anio;
         this.precio=precio;
     }
-    mostrarTodasLasPeliculas (){
+    mostrarGeneroPeliculas (){
         const peliculasSuspenso = pelicula.filter ((pelicula.genero == "suspenso"));
         return peliculasSuspenso.genero;
         
     }
 }
 
-/* const peliculasDeSuspenso = [`Elija una pelicula para ver: 
-
-    1:SnowPiercer
-    2:La presa
-    3:La huerfana 
-    4:Proyecto X
-    5:Encerrada 
-    6:Codigo emperador 
-    7:She Will `
-]
-
-let peliculasSuspenso = peliculas.filter((pelicula) => pelicula.genero == "suspenso"); */
 
 const listaDePeliculas = [
     {id: 1, producto: "Capitan america", genero: "accion", duracion:"2:04:00", idioma:"ingles",anio:"2011", precio:1500 },
@@ -146,8 +134,7 @@ const listaDePeliculas = [
     {id:11, producto:"She Will",genero: "suspenso",duracion: "01:45:00",idioma: "ingles",anio: "2022", precio:1200},
 ];
 
-const resultado = listaDePeliculas.filter((el) => el.genero.includes('suspenso'));
-
+listaDePeliculas.filter((el) => el.genero.includes('suspenso')); 
 
 /*Función  para realizar la compra de la pelicula, segun el número elegido. Permite comprar una sola o se puede seguir sumando titulos. */
 
