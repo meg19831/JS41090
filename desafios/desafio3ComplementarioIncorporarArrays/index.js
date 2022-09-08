@@ -75,7 +75,7 @@ alert ("Bienvenido a NetMovie. Para continuar es necesario completar el registro
 
 function verPeliculas () { 
 
-let  pelicula = prompt (`Elija una pelicula para ver: 
+let  pelicula = [prompt (`Elija una pelicula para ver: 
 
 1: Capitan America
 2: Advengers
@@ -88,33 +88,12 @@ let  pelicula = prompt (`Elija una pelicula para ver:
 9: Encerrada 
 10: Codigo emperador 
 11: She Will
-`);
+`)];
 
+pelicula.push ( );
 
+/* 
 
-/* while (pelicula != "ESC") {
-    if (pelicula == "Capitan America"&& pelicula == "Advengers" && pelicula == "El señor de los anillos" && pelicula == "Jhon Wick" ) {
-        alert ("La pelicula " + pelicula + " esta lista disponible")
-    }  
-    
-    switch (pelicula) {
-    
-        case "1":
-            alert ("La pelicula " + pelicula + " esta disponible")
-            break;
-        case "2":
-            alert ("La pelicula " + pelicula + " esta lista disponible")
-            break;
-        case "3":
-            alert ("La pelicula " + pelicula + " esta lista disponible")
-            break;
-        case "4":
-            alert ("La pelicula " + pelicula + " esta lista disponible")
-            break;
-        default:
-            alert("Esa pelicula aun no esta disponible")
-            break;
-    }
     
         pelicula = prompt ("¿Qué película te  gustaria que ingresemos a nuestra App? ");
         alert (`Pronto podras disfrutar: ${pelicula} `);
@@ -139,7 +118,7 @@ class TodasLasPeliculas {
     }
 }
 
-const peliculasDeSuspenso = [`Elija una pelicula para ver: 
+/* const peliculasDeSuspenso = [`Elija una pelicula para ver: 
 
     1:SnowPiercer
     2:La presa
@@ -150,7 +129,7 @@ const peliculasDeSuspenso = [`Elija una pelicula para ver:
     7:She Will `
 ]
 
-let peliculasSuspenso = peliculas.filter((pelicula) => pelicula.genero == "suspenso");
+let peliculasSuspenso = peliculas.filter((pelicula) => pelicula.genero == "suspenso"); */
 
 const listaDePeliculas = [
     {id: 1, producto: "Capitan america", genero: "accion", duracion:"2:04:00", idioma:"ingles",anio:"2011", precio:1500 },
@@ -167,7 +146,7 @@ const listaDePeliculas = [
     {id:11, producto:"She Will",genero: "suspenso",duracion: "01:45:00",idioma: "ingles",anio: "2022", precio:1200},
 ];
 
-
+const resultado = listaDePeliculas.filter((el) => el.genero.includes('suspenso'));
 
 
 /*Función  para realizar la compra de la pelicula, segun el número elegido. Permite comprar una sola o se puede seguir sumando titulos. */
@@ -227,7 +206,7 @@ function comprar() {
 
 
 function calcularPrecioProducto () {
-    switch (pelicula) {
+    switch (pelicula.length) {
         case "1":
             return 1500;
             
@@ -277,6 +256,8 @@ function calcularPrecioProducto () {
     }
 }
 
+
+
 /* Si el usuario luego de elegir la pelicula o las peliculas, puede continuar comprando, o finalizar la compra. Tambien puede ingresar a la App para registrarse y finalizar sin comprar. Aparecerá un mensaje "gracias por su visita" */
 
     function pagarPeliculas( precio) {
@@ -284,8 +265,9 @@ function calcularPrecioProducto () {
             alert('Gracias por su visita')
         } else {
             alert('Los productos comprados son:\n' + listaPeliculas + "Total: $" + total);
+            alert (`A la brevedad le llegara un email para que pueda disfrutar de su compra`);
         }
     }
     
 
-    mostrarMenu()
+    
