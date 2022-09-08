@@ -18,11 +18,11 @@ alert ("Bienvenido a NetMovie. Para continuar es necesario completar el registro
     
     class Usuario {
         constructor (nombre, apellido, correoElectronico, contraseña, alias){
-            this.nombre = nombre
-            this.apellido = apellido
-            this.correoElectronico = correoElectronico
-            this.contraseña = contraseña
-            this.alias = alias
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.correoElectronico = correoElectronico;
+            this.contraseña = contraseña;
+            this.alias = alias; 
         }
         mostrarInfoUsuario (){
             return `Usuario : ¡Bienvenido a NetMovie  ${nombre} ! Tu correo electronico ${correoElectronico} ya se encuentra registrado y tu alias ${alias} tambien`
@@ -41,7 +41,7 @@ alert ("Bienvenido a NetMovie. Para continuar es necesario completar el registro
 /* A continuación se mostrará el menu, para ver las peliculas dispobibles, para comprar y pagar.*/
 
 
-    const peliculas = '1 - Capitan America \n2 - Advengers\n3 - El señor de los anillos\n4 - Jhon Wick';
+    const peliculas = '1 - Capitan America \n2 - Advengers\n3 - El señor de los anillos\n4 - Jhon Wick \n5 - SnowPiercer \n6 - La presa \n7 - La huerfana  \n8 - Proyecto X \n9 - Encerrada  \n10 - Codigo emperador  \n 11 - She Will';
     let listaPeliculas = '';
     let total = 0;
 
@@ -75,16 +75,24 @@ alert ("Bienvenido a NetMovie. Para continuar es necesario completar el registro
 
 function verPeliculas () { 
 
-let pelicula = prompt (`Elija una pelicula para ver: 
+let  pelicula = prompt (`Elija una pelicula para ver: 
 
 1: Capitan America
 2: Advengers
 3: El señor de los anillos
 4: Jhon Wick
+5: SnowPiercer
+6: La presa
+7: La huerfana 
+8: Proyecto X
+9: Encerrada 
+10: Codigo emperador 
+11: She Will
 `);
 
 
-while (pelicula != "ESC") {
+
+/* while (pelicula != "ESC") {
     if (pelicula == "Capitan America"&& pelicula == "Advengers" && pelicula == "El señor de los anillos" && pelicula == "Jhon Wick" ) {
         alert ("La pelicula " + pelicula + " esta lista disponible")
     }  
@@ -111,8 +119,56 @@ while (pelicula != "ESC") {
         pelicula = prompt ("¿Qué película te  gustaria que ingresemos a nuestra App? ");
         alert (`Pronto podras disfrutar: ${pelicula} `);
         break;
+    }*/
+} 
+
+// agregando arreglos [] a la APP
+class TodasLasPeliculas {
+    constructor (nombre, genero, duracion, idioma,anio, precio){
+        this.nombre=nombre;
+        this.genero=genero;
+        this.duracion= duracion;
+        this.idioma=idioma;
+        this.año=anio;
+        this.precio=precio;
+    }
+    mostrarTodasLasPeliculas (){
+        const peliculasSuspenso = pelicula.filter ((pelicula.genero == "suspenso"));
+        return peliculasSuspenso.genero;
+        
     }
 }
+
+const peliculasDeSuspenso = [`Elija una pelicula para ver: 
+
+    1:SnowPiercer
+    2:La presa
+    3:La huerfana 
+    4:Proyecto X
+    5:Encerrada 
+    6:Codigo emperador 
+    7:She Will `
+]
+
+let peliculasSuspenso = peliculas.filter((pelicula) => pelicula.genero == "suspenso");
+
+const listaDePeliculas = [
+    {id: 1, producto: "Capitan america", genero: "accion", duracion:"2:04:00", idioma:"ingles",anio:"2011", precio:1500 },
+    {id: 2, producto:"Advenger", genero:"accion", duracion:"2:23:00",idioma:"ingles", anio:"2012", precio:1500 },
+    {id:3, producto:"El señor de los anillos", genero: "aventura", duracion:"2:59:00", idioma: "ingles",anio:2005, precio: 1100 },
+    {id:4, producto:"Jhon Wick",genero: "suspenso", duracion: "1:41:00",idioma: "ingles", anio:"2014", precio:1200},
+    {id:5, producto:"SnowPiercer", genero:"accion",duracion: "00:50:00", idioma:"ingles",anio: "2020" , precio:1200},
+    {id:6, producto:"La presa", genero:"suspenso",duracion: "01: 40:00",idioma: "ingles", anio:"2022" , precio:1200},
+    {id:7, producto:"La huerfana",genero: "suspenso",duracion: "01:39:00",idioma: "ingles",anio:"2022" , precio:1200},
+    {id:8, producto:"Proyecto X",genero: "suspenso",duracion: "01:45:00",idioma: "ingles",anio: "2022" , precio:1200},
+    {id:8, producto:"Proyecto X",genero: "suspenso",duracion: "01:45:00",idioma: "ingles",anio: "2022" , precio:1200},
+    {id:9, producto:"Encerrada", genero:"suspenso",duracion: "01:29:00",idioma: "ingles", anio:"2022" , precio:1200},
+    {id:10, producto:"Codigo emperador",genero: "accion",duracion: "01:46:00",idioma:"ingles",anio:"2022", precio:1200},
+    {id:11, producto:"She Will",genero: "suspenso",duracion: "01:45:00",idioma: "ingles",anio: "2022", precio:1200},
+];
+
+
+
 
 /*Función  para realizar la compra de la pelicula, segun el número elegido. Permite comprar una sola o se puede seguir sumando titulos. */
 
@@ -134,7 +190,35 @@ function comprar() {
         case '4':
             listaPeliculas = listaPeliculas + 'Jhon Wick\n'
             total = total + 1200;
+            break;
+        case '5':
+            listaPeliculas = listaPeliculas + 'SnowPiercer\n'
+            total = total + 1200;
+            break;        
+        case '6':
+            listaPeliculas = listaPeliculas + 'La presa\n'
+            total = total + 1200;
+            break;
+        case '7':
+            listaPeliculas = listaPeliculas + 'La huerfana\n'
+            total = total + 1200;
+            break;
+        case '8':
+            listaPeliculas = listaPeliculas + 'Proyecto X\n'
+            total = total + 1200;
                 break;
+        case '9':
+            listaPeliculas = listaPeliculas + 'Encerrada \n'
+            total = total + 1200;
+                break;
+        case '10':
+            listaPeliculas = listaPeliculas + 'Codigo emperador\n'
+            total = total + 1200;
+                break;
+        case '11':
+            listaPeliculas = listaPeliculas + 'She Will\n'
+            total = total + 1200;
+                break;                
     }
     alert('Producto agregado');
 }
@@ -157,6 +241,34 @@ function calcularPrecioProducto () {
             
             break;
         case "4":
+            return 1200;
+            
+            break;
+        case "5":
+            return 1200;
+                
+            break;
+        case "6":
+            return 1200;
+                    
+            break;
+        case "7":
+            return 1200;
+            
+            break;
+        case "8":
+            return 1200;
+            
+            break;
+        case "9":
+            return 1200;
+            
+            break;
+        case "10":
+            return 1200;
+            
+            break;
+        case "11":
             return 1200;
             
             break;
