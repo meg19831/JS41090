@@ -1,6 +1,5 @@
 /* Ingreso al sistema, solicitud de registro, con datos personales.
 Luego se solicitara que el correo sea uno válido */ 
-
 alert ("Bienvenido a NetMovie. Para continuar es necesario completar el registro");
     
     function saludar(){
@@ -11,17 +10,35 @@ alert ("Bienvenido a NetMovie. Para continuar es necesario completar el registro
 
     let nombre = prompt ("Ingrese su  nombre")
     let apellido = prompt ("Ingrese su apellido");
-    let correoElectronico = prompt ("Ingrese su correo electónico");
+    let correoElectronico = prompt ("Ingrese su correo electonico");
     let alias = prompt ("Ingrese un nombre para su perfil");
     
     saludar();
     
+/* Listado de peliculas disponibles */
+
+const listaDePeliculas = [ 
+    {id: 1, producto: "Capitan america", genero: "accion", duracion:"2:04:00", idioma:"ingles",anio:"2011", precio:1500 },
+    {id: 2, producto:"Advenger", genero:"accion", duracion:"2:23:00",idioma:"ingles", anio:"2012", precio:1500 },
+    {id:3, producto:"El señor de los anillos", genero: "aventura", duracion:"2:59:00", idioma: "ingles",anio:2005, precio: 1100 },
+    {id:4, producto:"Jhon Wick",genero: "suspenso", duracion: "1:41:00",idioma: "ingles", anio:"2014", precio:1200},
+    {id:5, producto:"SnowPiercer", genero:"accion",duracion: "00:50:00", idioma:"ingles",anio: "2020" , precio:1200},
+    {id:6, producto:"La presa", genero:"suspenso",duracion: "01: 40:00",idioma: "ingles", anio:"2022" , precio:1200},
+    {id:7, producto:"La huerfana",genero: "suspenso",duracion: "01:39:00",idioma: "ingles",anio:"2022" , precio:1200},
+    {id:8, producto:"Proyecto X",genero: "suspenso",duracion: "01:45:00",idioma: "ingles",anio: "2022" , precio:1200},
+    {id:8, producto:"Proyecto X",genero: "suspenso",duracion: "01:45:00",idioma: "ingles",anio: "2022" , precio:1200},
+    {id:9, producto:"Encerrada", genero:"suspenso",duracion: "01:29:00",idioma: "ingles", anio:"2022" , precio:1200},
+    {id:10, producto:"Codigo emperador",genero: "accion",duracion: "01:46:00",idioma:"ingles",anio:"2022", precio:1200},
+    {id:11, producto:"She Will",genero: "suspenso",duracion: "01:45:00",idioma: "ingles",anio: "2022", precio:1200},
+];
+
+
     class Usuario {
-        constructor (nombre, apellido, correoElectronico, contraseña, alias){
+        constructor (nombre, apellido, correoElectronico, contrasenia, alias){
             this.nombre = nombre;
             this.apellido = apellido;
             this.correoElectronico = correoElectronico;
-            this.contraseña = contraseña;
+            this.contraseña = contrasenia;
             this.alias = alias; 
         }
         mostrarInfoUsuario (){
@@ -40,8 +57,6 @@ alert ("Bienvenido a NetMovie. Para continuar es necesario completar el registro
 
 /* A continuación se mostrará el menu, para ver las peliculas dispobibles, para comprar y pagar.*/
 
-
-    const peliculas = '1 - Capitan America \n2 - Advengers\n3 - El señor de los anillos\n4 - Jhon Wick \n5 - SnowPiercer \n6 - La presa \n7 - La huerfana  \n8 - Proyecto X \n9 - Encerrada  \n10 - Codigo emperador  \n 11 - She Will';
     let listaPeliculas = '';
     let total = 0;
 
@@ -69,36 +84,22 @@ alert ("Bienvenido a NetMovie. Para continuar es necesario completar el registro
     }
     mostrarMenu ();
 
-    /* Se muestra por pantalla el listado de peliculas disponibles. Según el número elegido, por pantalla muestra si está disponible. Si ingresa un numero de pelicula  que no está, , arroja mensaje de no disponible y regresa al menú.  Al finalizar, se le propone al usuario si quiere ingresar alguna pelicula que no esté en la App */
+    /* Se muestra por pantalla el listado de peliculas disponibles. Según el número elegido, por pantalla muestra si está disponible. Si ingresa un numero de pelicula  que no está, , arroja mensaje de no disponible y regresa al menú.  */
     
     let pelicula = ""
 
+function getPeliculasAsString() {
+    let peliculas = " "
+    listaDePeliculas.forEach((i)=>{
+        peliculas+= i.id + ": " + i.producto +"\n";
+    });
+    return peliculas;
+}
+
 function verPeliculas () { 
 
-let  pelicula = [prompt (`Elija una pelicula para ver: 
+alert ("Las peliculas disponibles son: \n"+ getPeliculasAsString());
 
-1: Capitan America
-2: Advengers
-3: El señor de los anillos
-4: Jhon Wick
-5: SnowPiercer
-6: La presa
-7: La huerfana 
-8: Proyecto X
-9: Encerrada 
-10: Codigo emperador 
-11: She Will
-`)];
-
-pelicula.push ( );
-
-/* 
-
-    
-        pelicula = prompt ("¿Qué película te  gustaria que ingresemos a nuestra App? ");
-        alert (`Pronto podras disfrutar: ${pelicula} `);
-        break;
-    }*/
 } 
 
 // agregando arreglos [] a la APP
@@ -118,28 +119,27 @@ class TodasLasPeliculas {
     }
 }
 
+/*  Esta funcion permite recorrer  para ver las peliculas. Al finalizar, se le propone al usuario si quiere ingresar alguna pelicula que no esté en la App */
 
-const listaDePeliculas = [
-    {id: 1, producto: "Capitan america", genero: "accion", duracion:"2:04:00", idioma:"ingles",anio:"2011", precio:1500 },
-    {id: 2, producto:"Advenger", genero:"accion", duracion:"2:23:00",idioma:"ingles", anio:"2012", precio:1500 },
-    {id:3, producto:"El señor de los anillos", genero: "aventura", duracion:"2:59:00", idioma: "ingles",anio:2005, precio: 1100 },
-    {id:4, producto:"Jhon Wick",genero: "suspenso", duracion: "1:41:00",idioma: "ingles", anio:"2014", precio:1200},
-    {id:5, producto:"SnowPiercer", genero:"accion",duracion: "00:50:00", idioma:"ingles",anio: "2020" , precio:1200},
-    {id:6, producto:"La presa", genero:"suspenso",duracion: "01: 40:00",idioma: "ingles", anio:"2022" , precio:1200},
-    {id:7, producto:"La huerfana",genero: "suspenso",duracion: "01:39:00",idioma: "ingles",anio:"2022" , precio:1200},
-    {id:8, producto:"Proyecto X",genero: "suspenso",duracion: "01:45:00",idioma: "ingles",anio: "2022" , precio:1200},
-    {id:8, producto:"Proyecto X",genero: "suspenso",duracion: "01:45:00",idioma: "ingles",anio: "2022" , precio:1200},
-    {id:9, producto:"Encerrada", genero:"suspenso",duracion: "01:29:00",idioma: "ingles", anio:"2022" , precio:1200},
-    {id:10, producto:"Codigo emperador",genero: "accion",duracion: "01:46:00",idioma:"ingles",anio:"2022", precio:1200},
-    {id:11, producto:"She Will",genero: "suspenso",duracion: "01:45:00",idioma: "ingles",anio: "2022", precio:1200},
-];
 
-listaDePeliculas.filter((el) => el.genero.includes('suspenso')); 
+const generoPeliculaElegida = []
+let cantidadDePelisIngresadas = 1
+generoPeliculaElegida.forEach((el)=>{
+    return (el.nombre)
+    
+})
+
+
+let quePeliQuiere = prompt ( `¿Que peli queres que agreguemos a la App? `)
+listaDePeliculas.push ({id:listaDePeliculas.length+1, producto:quePeliQuiere,genero: " ",duracion: " ",idioma: " ",anio: " "})
+
+alert ( `La peli agregada es:  ${quePeliQuiere}`);
+
 
 /*Función  para realizar la compra de la pelicula, segun el número elegido. Permite comprar una sola o se puede seguir sumando titulos. */
 
 function comprar() {
-    const peliculaElegida = prompt('¿Qué pelicula desea comprar? (Ingrese el número)\n' + peliculas);
+    const peliculaElegida = prompt('¿Qué pelicula desea comprar? (Ingrese el número)\n' + getPeliculasAsString());
     switch (peliculaElegida) {
         case '1':
             listaPeliculas = listaPeliculas + 'Capitan America\n'
@@ -243,8 +243,6 @@ function calcularPrecioProducto () {
     }
 }
 
-
-
 /* Si el usuario luego de elegir la pelicula o las peliculas, puede continuar comprando, o finalizar la compra. Tambien puede ingresar a la App para registrarse y finalizar sin comprar. Aparecerá un mensaje "gracias por su visita" */
 
     function pagarPeliculas( precio) {
@@ -252,9 +250,6 @@ function calcularPrecioProducto () {
             alert('Gracias por su visita')
         } else {
             alert('Los productos comprados son:\n' + listaPeliculas + "Total: $" + total);
-            alert (`A la brevedad le llegara un email para que pueda disfrutar de su compra`);
+            alert (`¡Gracias por tu compra! A la brevedad te llegara un email para que puedas disfrutar de tu compra`);
         }
     }
-    
-
-    
