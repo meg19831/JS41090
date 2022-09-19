@@ -3,7 +3,17 @@
 /* conectarlos a un carrito */
 
 class Producto {
-  constructor(id, titulo, genero, duracion, idioma, anio, precio, img) {
+  constructor(
+    id,
+    titulo,
+    genero,
+    duracion,
+    idioma,
+    anio,
+    precio,
+    img,
+    cantidad
+  ) {
     this.id = id;
     this.titulo = titulo;
     this.genero = genero;
@@ -12,6 +22,7 @@ class Producto {
     this.anio = anio;
     this.precio = precio;
     this.img = img;
+    this.cantidad = cantidad;
   }
 }
 
@@ -136,6 +147,20 @@ const listaDePeliculas = [
 ];
 
 /* console.log(listaDePeliculas); */
+document.addEventListener("click", (e) => {
+  /* console.log(e.target); */
+  if (e.target.matches(".btn-primary")) {
+    /* console.log("hiciste click") */ agregarCarrito(e);
+  }
+});
+
+document.addEventListener("click", (e) => {
+  /* console.log(e.target); */
+  if (e.target.matches(".btn-danger")) {
+    console.log("hiciste click") /* removerProductoCarrito(e); */
+  }
+});
+
 
 /* crear una funcion para mostrar las peliculas */
 
@@ -144,7 +169,7 @@ function catalogoDePeliculas(productos) {
   productos.forEach((producto) => {
     let cardPeli = document.createElement(`div`);
     cardPeli.classList.add(`col-md-4`);
-    cardPeli.style = "width: 18rem";
+    cardPeli.style = "width: 16rem";
     cardPeli.innerHTML += ` <div class = "card my-3">;
                                         <img src= "${producto.img}" class = "img-card-top" alt= "${producto.titulo}"> 
                                         <div class= "carPeli-body">
@@ -152,57 +177,81 @@ function catalogoDePeliculas(productos) {
                                             <p class = "card-text">Precio: "${producto.precio}"</p>
                                             <p class = "card-text">Genero: "${producto.genero}"</p>
                                             <p class = "card-text">Anio: "${producto.anio}"</p>
-                                            <p class = "card-text">Duracion "${producto.duracion}"</p> 
-                                            <p class = "card-text">Idioma "${producto.idioma}"</p>
-                                            <button role="boton" class="boton"><i class="fa-solid fa-play" id= "btn-add-${producto.id}">Agregar</button>
-                                            <button role="boton" class="boton"><i class="fa-solid fa-play" id= "btn-del-${producto.id}">Eliminar</button> 
+                                            <p class = "card-text">Duracion: "${producto.duracion}"</p> 
+                                            <p class = "card-text">Idioma: "${producto.idioma}"</p>
+                                            
+                                            <button data-id="${producto.id}" id="boton-agregar" class="btn btn-primary">Agregar</button>
+                                            <button id="boton-vaciar${producto.id}" class="btn btn-danger">Vaciar</button>
                                         </div>
                                     </div>`;
 
     peliculasContainer.appendChild(cardPeli);
-
-  /*   const button = document.getElementById(`btn-add-${producto.id}`);
-    button.addEventListener("click", () => {
-      eliminarCarrito(`${producto.id}`);
-      alert(`Agregaste la peli ${producto.titulo}`);
-      carrito.push(producto);
-    });
   });
-} */
-
-const button = document.getElementById(`btn-add-${producto.id}`);
-button.addEventListener("click", () => {
-  alert(`Agregaste la peli ${producto.titulo}`);
-agregarCarrito(producto.id);
-});
-});
 }
 
 
-const buttonEliminar = document.getElementById(`btn-del-${producto.id}`);
-buttonEliminar.addEventListener("click", () => {
-  /* alert(`Eliminar peli agregada ${producto.titulo}`); */
-carrito.splice();
-});
+//funcion para agregar productos en el carrito
 
-
-//funcion agregar carrito
-
-function agregarCarrito(x){
-    let producto = listaDePeliculas.find ((e)=>
-    e.id==x)
-    carrito.push (producto)
-    console.log(carrito);
+function agregarCarrito(e) {
+  /* console.log(e.target.dataset); */
+  const cardNumero = Number(e.target.dataset.id);
+  const productoSeleccionado = listaDePeliculas.find(
+    (i) => i.id === cardNumero
+  );
+  const coincidirCard = carrito.findIndex((i) => i.id === cardNumero);
+  console.log(coincidirCard);
+  if (coincidirCard === -1) {
+    carrito.push(
+      new Producto(
+        productoSeleccionado.id,
+        productoSeleccionado.titulo,
+        productoSeleccionado.genero,
+        productoSeleccionado.duracion,
+        productoSeleccionado.idioma,
+        productoSeleccionado.anio,
+        productoSeleccionado.precio,
+        productoSeleccionado.img,
+        (productoSeleccionado.cantidad = 1)
+      )
+    );
+  } else {
+    carrito[coincidirCard].cantidad++;
+  }
+  /* console.log(carrito); */
+  verCarrito();
 }
 
-//funcion eliminar carrito
 
-/* function eliminarCarrito(id) {
-  const producto = listaDePeliculas.find(function encontrarPelicula() {
-    if (producto.id == id) {
-      return producto;
-    }
+// funcion para ver carrito
+
+function verCarrito() {
+  const seccionCarrito = document.getElementById(`seccionCarrito`);
+  seccionCarrito.textContent = "";
+  carrito.forEach((i) => {
+    const div = document.createElement(`div`);
+  
+    div.innerHTML += `<li class="list-group-item text-uppercase bg-dark text-white">
+    <span class="badge bg-primary rounded-pill align-middle">${i.cantidad}</span>
+  <span class="lead align-middle">${i.titulo}</span>
+</li>
+<li class="list-group-item d-flex justify-content-between align-items-center">
+  <div>
+      <p class="lead mb-0">Total: $<span>${i.cantidad * i.precio}</span></p>
+  </div>
+  <div>
+      <button class="btn btn-sm btn-success">Sumar</button>
+      <button class="btn btn-sm btn-danger">Restar</button>
+  </div> </li>`;
+
+    seccionCarrito.appendChild(div);
   });
-  carrito.push(producto);
-} */
+}
 
+//Eliminar producto del carrito
+
+/* function removerProductoCarrito(elementoAEliminar) {
+  const elementosAMantener = carrito.filter((producto) => elementoAEliminar.producto.id != producto.producto.id);
+  carrito.length = 0;
+
+  elementosAMantener.forEach((producto) => carrito.push(producto));
+} */

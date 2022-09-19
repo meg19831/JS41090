@@ -78,7 +78,7 @@ h2{
 
 /* carrito de compras*/
 
-.cardPeli 
+
 
 /*Estilos en la seccion formulario*/
 
@@ -90,4 +90,11 @@ h2{
 /* Estilos en la seccion: peliculas*/
 h3{
     margin-left: 20px;
+}
+
+/* Estilos de los botones de las Card*/
+
+#btn-add- {
+    color: black;
+    background-color: blue;
 }

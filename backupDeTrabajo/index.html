@@ -45,32 +45,23 @@
                 </nav>
         </div>
     </header>
-    <main >
+    <main>
       <div class = pelicula-principal>
         <div class="contenedor">
           <h3 class="titulo">SNOWPIERCER</h3>
           <h5 class="subtitulo">ROMPENIEVES</h5>
           <p class="descripcion">Un experimento para solucionar el calentamiento global acabó con la mayoría de vida existente en el planeta. El último tren llamado Snowpiercer (Rompenieves) se mueve en círculos por el mundo, a través de un desierto de hielo y nieve. Los últimos supervivientes de la Tierra se amontonan en sus vagones. El joven Curtis (Chris Evans) iniciará una revolución desde los vagones de cola.</p>
-          <button role  id="boton-agregar ${producto.id}" class="btn btn-primary">Agregar</button>  
-          <!--  <button role="boton" class="btn-btn-info"><i class="fa-solid fa-play"></i>Reproducir</button>-->
-            <!--<button role="boton" class="btn-btn-danger"><i class="fa-solid fa-circle-info"></i>Mas informacion </button>-->
-            <button id="boton-vaciar ${producto.id}" class="btn btn-danger">Mas Informacion</button>
-            <!--<button role="boton" class="boton"><i class="fa-duotone fa-cart-shopping" href="#"></i></button> -->
+            <button role="boton" class="boton"><i class="fa-solid fa-play"></i>Reproducir</button>
+            <button role="boton" class="boton"><i class="fa-solid fa-circle-info"></i>Mas informacion </button>
+            <button role="boton" class="boton"><i class="fa-duotone fa-cart-shopping" href="#"></i></button> 
             
         </div>
       </div>
-    </main>
 
-    <section class "peliculas" id="peliculas"></section>
-    <h2 class="logotipo"> Peliculas </h2>
-    <div class = "container"> 
-    <div class="row" id="peliculas-container"></div>
-    </div>
-    
-    <!-- <div id="peliculas-container"> -->
-         <!-- <section class "peliculas" id="peliculas">
+      <section class "peliculas" id="peliculas">
         <div>
-          <h3 >Suspenso</h3> 
+          <h2 class="logotipo"> Peliculas </h2>
+          <h3 >Suspenso</h3>
           <img class =" imagenes-suspenso" src="./assets/img/suspenso1.jpg" alt="">
           <img class =" imagenes-suspenso" src="./assets/img/suspenso2.jpg" alt="">
           <img class =" imagenes-suspenso" src="./assets/img/suspenso3.jpg" alt="">
@@ -97,16 +88,6 @@
           <img class =" imagenes-aventura" src="./assets/img/aventura7.jpg" alt="">
         </div>
       </section>
-    </div> -->
-
-    <section>
-      <div class="container">
-        <ul class=" list-group" id="seccionCarrito">
-          
-        </ul>
-      </div>
-    </section>
-
 
       <section class "contacto" id="contacto">
         <div >
@@ -142,7 +123,7 @@
           </div>
       </section>
 
-    
+    </main>
     <section>
     <footer class="bg-dark text-center text-white mt-4">
       <!-- Grid container -->
@@ -195,7 +176,7 @@
     </footer>
   </section> 
 
-    <script src="./index.js"></script>
+    <script src="./js/main.js"></script>
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 </body>
 </html>
