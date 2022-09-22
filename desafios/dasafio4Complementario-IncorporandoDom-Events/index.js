@@ -154,12 +154,7 @@ document.addEventListener("click", (e) => {
   }
 });
 
-document.addEventListener("click", (e) => {
-  /* console.log(e.target); */
-  if (e.target.matches(".btn-danger")) {
-    console.log("hiciste click") /* removerProductoCarrito(e); */
-  }
-});
+
 
 
 /* crear una funcion para mostrar las peliculas */
@@ -181,7 +176,7 @@ function catalogoDePeliculas(productos) {
                                             <p class = "card-text">Idioma: "${producto.idioma}"</p>
                                             
                                             <button data-id="${producto.id}" id="boton-agregar" class="btn btn-primary">Agregar</button>
-                                            <button id="boton-vaciar${producto.id}" class="btn btn-danger">Vaciar</button>
+                                            
                                         </div>
                                     </div>`;
 
@@ -240,18 +235,31 @@ function verCarrito() {
   </div>
   <div>
       <button class="btn btn-sm btn-success">Sumar</button>
-      <button class="btn btn-sm btn-danger">Restar</button>
+      <button class="btn btn-sm btn-danger" id="delete${i.id}" >Restar</button>
   </div> </li>`;
 
     seccionCarrito.appendChild(div);
-  });
+
+    /* let botonDelete = document.getElementById(`delete${i.id}`); */
+    /* botonDelete =  */document.addEventListener("click", (e) => {
+      /* console.log(e.target); */
+      if (e.target.matches(".btn-danger")) {
+    /*  console.log("hiciste click")   */   
+    borrarItemCarrito(e);
+      }
+    });
+})
+
 }
+
 
 //Eliminar producto del carrito
 
-/* function removerProductoCarrito(elementoAEliminar) {
-  const elementosAMantener = carrito.filter((producto) => elementoAEliminar.producto.id != producto.producto.id);
-  carrito.length = 0;
+function borrarItemCarrito(e) {
+  let btnClicked = e.target.dataset.id;
 
-  elementosAMantener.forEach((producto) => carrito.push(producto));
-} */
+  btnClicked = carrito.splice((carritoId) => {
+    /* return carritoId !== carrito; */
+ /*  btnClicked.splice() */
+})
+}
