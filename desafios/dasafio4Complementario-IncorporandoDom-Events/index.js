@@ -33,6 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
   /* console.log("DOM") */
 });
 
+// json 
+
 const listaDePeliculas = [
   new Producto(
     1,
@@ -146,13 +148,28 @@ const listaDePeliculas = [
   ),
 ];
 
-/* console.log(listaDePeliculas); */
 document.addEventListener("click", (e) => {
   /* console.log(e.target); */
   if (e.target.matches(".btn-primary")) {
     /* console.log("hiciste click") */ agregarCarrito(e);
   }
 });
+
+//boton eliminar 
+document.addEventListener("click", (e) => {
+  
+  if (e.target.matches(".btn-danger")) {
+  /*  borrarItemCarrito(e); */
+   eliminarDelCarrito(e)
+  }
+  verCarrito()
+});
+
+const eliminarDelCarrito = (e) =>{
+  const item =carrito.find((producto)=>producto.id===e)
+  const indice = carrito.indexOf(item)
+  carrito.splice(indice,1)
+}
 
 
 
@@ -184,7 +201,6 @@ function catalogoDePeliculas(productos) {
   });
 }
 
-
 //funcion para agregar productos en el carrito
 
 function agregarCarrito(e) {
@@ -194,7 +210,7 @@ function agregarCarrito(e) {
     (i) => i.id === cardNumero
   );
   const coincidirCard = carrito.findIndex((i) => i.id === cardNumero);
-  console.log(coincidirCard);
+ /*  console.log(coincidirCard); */
   if (coincidirCard === -1) {
     carrito.push(
       new Producto(
@@ -216,17 +232,19 @@ function agregarCarrito(e) {
   verCarrito();
 }
 
-
 // funcion para ver carrito
 
 function verCarrito() {
+  
   const seccionCarrito = document.getElementById(`seccionCarrito`);
   seccionCarrito.textContent = "";
   carrito.forEach((i) => {
     const div = document.createElement(`div`);
-  
+
     div.innerHTML += `<li class="list-group-item text-uppercase bg-dark text-white">
-    <span class="badge bg-primary rounded-pill align-middle">${i.cantidad}</span>
+    <span class="badge bg-primary rounded-pill align-middle">${
+      i.cantidad
+    }</span>
   <span class="lead align-middle">${i.titulo}</span>
 </li>
 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -234,32 +252,94 @@ function verCarrito() {
       <p class="lead mb-0">Total: $<span>${i.cantidad * i.precio}</span></p>
   </div>
   <div>
-      <button class="btn btn-sm btn-success">Sumar</button>
-      <button class="btn btn-sm btn-danger" id="delete${i.id}" >Restar</button>
+      <button class="btn btn-sm btn-success" id= "btn-sumar">Sumar</button>
+      <button class="btn btn-sm btn-danger" id="btn-eliminar">Restar</button>
   </div> </li>`;
 
+  
     seccionCarrito.appendChild(div);
-
-    /* let botonDelete = document.getElementById(`delete${i.id}`); */
-    /* botonDelete =  */document.addEventListener("click", (e) => {
-      /* console.log(e.target); */
-      if (e.target.matches(".btn-danger")) {
-    /*  console.log("hiciste click")   */   
-    borrarItemCarrito(e);
-      }
-    });
-})
-
+  });
+  
 }
-
 
 //Eliminar producto del carrito
 
 function borrarItemCarrito(e) {
-  let btnClicked = e.target.dataset.id;
+  /* console.log(e.target.dataset); */
+  const id = e.target.dataset.id;
+ //borramos los productos
+ carrito = carrito.filter((carritoId) => {
+  return carritoId !== id;
+});
 
-  btnClicked = carrito.splice((carritoId) => {
-    /* return carritoId !== carrito; */
- /*  btnClicked.splice() */
-})
+ //volvemos a renderizar
+  verCarrito();
+}
+
+/* const botonSumar = document.getElementById ("btn-sumar")
+botonSumar.addEventListener("click", (e)=>{
+  function calcularTotal() {
+  //recorremos el array del carrito
+  return carrito
+    .reduce((total, item) => {
+      // de cada elemento obtenemos su precio
+      const miItem = baseDeDatos.filter((itemBaseDatos) => {
+        return itemBaseDatos.id === parseInt(item);
+      });
+      // los sumamos al total
+      return total + miItem[0].precio;
+    }, 0)
+    .toFixed(2);
+}
+
+}) */
+
+ 
+
+
+//vaciar carrito
+
+const botonVaciar = document.getElementById("btn-vaciarCarrito")
+botonVaciar.addEventListener("click", (e) => {
+   
+   carrito.length=0
+   verCarrito()
+  });
+
+  //capturar datos del Formulario
+  
+  function capturarFormulario() {
+    let nombre=document.getElementById("inputNombre").value;
+    let email=document.getElementById("inputEmail").value;
+    let telefono=document.getElementById("inputTelefono").value;
+    let mensaje=document.getElementById("exampleFormControlTextarea2").value;
+    
+    if (nombre== ""){
+      alert ("Nombre Obligatorio")
+      document.getElementById("inputNombre").focus();
+    }else{
+      if (email== ""){
+        alert ("Email Obligatorio")
+        document.getElementById("inputEmail").focus();
+      }else{
+      if (telefono== ""){
+        alert ("Telefono Obligatorio")
+        document.getElementById("inputTelefono").focus();
+      }else{
+        if (mensaje== ""){
+          alert ("Escriba su mensaje")
+          document.getElementById("exampleFormControlTextarea2").focus();
+        }else{
+        console.log(nombre);
+        document.getElementById("inputNombre").value= "";
+        document.getElementById("inputEmail").value= "";
+        document.getElementById("inputTelefono").value= "";
+        document.getElementById("exampleFormControlTextarea2").value= "";
+        document.getElementById("inputNombre").focus();
+        
+      }
+    }
+    
+  }
+}
 }
