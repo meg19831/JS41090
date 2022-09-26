@@ -30,10 +30,10 @@ let carrito = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   catalogoDePeliculas(listaDePeliculas);
-  /* console.log("DOM") */
+  
 });
 
-// json 
+
 
 const listaDePeliculas = [
   new Producto(
@@ -151,8 +151,9 @@ const listaDePeliculas = [
 document.addEventListener("click", (e) => {
   /* console.log(e.target); */
   if (e.target.matches(".btn-primary")) {
-    /* console.log("hiciste click") */ agregarCarrito(e);
+     agregarCarrito(e);
   }
+  
 });
 
 //boton eliminar 
@@ -204,13 +205,13 @@ function catalogoDePeliculas(productos) {
 //funcion para agregar productos en el carrito
 
 function agregarCarrito(e) {
-  /* console.log(e.target.dataset); */
+  
   const cardNumero = Number(e.target.dataset.id);
   const productoSeleccionado = listaDePeliculas.find(
     (i) => i.id === cardNumero
   );
   const coincidirCard = carrito.findIndex((i) => i.id === cardNumero);
- /*  console.log(coincidirCard); */
+ 
   if (coincidirCard === -1) {
     carrito.push(
       new Producto(
@@ -228,7 +229,7 @@ function agregarCarrito(e) {
   } else {
     carrito[coincidirCard].cantidad++;
   }
-  /* console.log(carrito); */
+  window.localStorage.setItem('carrito', JSON.stringify(carrito));
   verCarrito();
 }
 
@@ -252,8 +253,9 @@ function verCarrito() {
       <p class="lead mb-0">Total: $<span>${i.cantidad * i.precio}</span></p>
   </div>
   <div>
-      <button class="btn btn-sm btn-success" id= "btn-sumar">Sumar</button>
+      <button class="btn btn-sm btn-success" id= "btn-sumar" >Sumar</button>
       <button class="btn btn-sm btn-danger" id="btn-eliminar">Restar</button>
+      <button type="button" class="btn btn-link" id = "btn-total">Total</button>
   </div> </li>`;
 
   
@@ -265,7 +267,7 @@ function verCarrito() {
 //Eliminar producto del carrito
 
 function borrarItemCarrito(e) {
-  /* console.log(e.target.dataset); */
+  
   const id = e.target.dataset.id;
  //borramos los productos
  carrito = carrito.filter((carritoId) => {
@@ -276,25 +278,21 @@ function borrarItemCarrito(e) {
   verCarrito();
 }
 
-/* const botonSumar = document.getElementById ("btn-sumar")
-botonSumar.addEventListener("click", (e)=>{
-  function calcularTotal() {
-  //recorremos el array del carrito
-  return carrito
-    .reduce((total, item) => {
-      // de cada elemento obtenemos su precio
-      const miItem = baseDeDatos.filter((itemBaseDatos) => {
-        return itemBaseDatos.id === parseInt(item);
-      });
-      // los sumamos al total
-      return total + miItem[0].precio;
-    }, 0)
-    .toFixed(2);
-}
 
-}) */
+//boton total
 
- 
+document.addEventListener("click", (e) => {
+  
+  if (e.target.matches(".btn-link")) {
+  /*  totalCompras(e) */ alert("hola")
+  }
+  verCarrito()
+});
+
+/* function totalCompras() {
+  
+} */
+
 
 
 //vaciar carrito
@@ -307,9 +305,21 @@ botonVaciar.addEventListener("click", (e) => {
    verCarrito()
   });
 
+
+
+//evento del boton enviar formulario
+
+
+let idFormulario = document.getElementById("idFormulario")
+idFormulario.addEventListener ("click", (e) =>{
+ localStorage.setItem(`capturarFormulario`, JSON.stringify(idFormulario));
+ localStorage.setItem(`capturarFormulario`,JSON.stringify(inputEmail.value))
+})
+
   //capturar datos del Formulario
   
   function capturarFormulario() {
+
     let nombre=document.getElementById("inputNombre").value;
     let email=document.getElementById("inputEmail").value;
     let telefono=document.getElementById("inputTelefono").value;
@@ -320,24 +330,29 @@ botonVaciar.addEventListener("click", (e) => {
     document.getElementById("inputNombre").focus();
     } else {
     }if (email == "")  {
-      /* alert("Email Obligatorio"); */
+      alert("Email Obligatorio");
       document.getElementById("inputEmail").focus();
     } else {
     }if (telefono == "") {
-      /* alert("Telefono Obligatorio"); */
         document.getElementById("inputTelefono").focus();
     } else {
     }if (mensaje == "") {
           document.getElementById("exampleFormControlTextarea2").focus();
           
     } else {
-      console.log(nombre,telefono,email,mensaje);
+      
           document.getElementById("inputNombre").value = "";
           document.getElementById("inputEmail").value = "";
           document.getElementById("inputTelefono").value = "";
           document.getElementById("exampleFormControlTextarea2").value = "";
           document.getElementById("inputNombre").focus();
     }
-   
+    function capturarFormulario() {
+      let idFormulario = localStorage.getItem(`idFormulario`,email);
+    
+      
+    }
+    capturarFormulario(); 
+   alert ("Gracias por tu compra. Nos pondremos en contacto a través de tu correo electrónico.\n NetMovie")
   }
   
