@@ -218,29 +218,36 @@ botonInfo.addEventListener("click", () => {
 
 //boton info cards
 
-const botonInfoCards = document.querySelector("#btn-infoCards");
+const botonInfoCards = document.querySelector("#infoCards");
 botonInfoCards.addEventListener("click", () => {
-  const { value: text } = Swal.fire({
-    input: 'textarea',
-    inputLabel: 'Message',
-    inputPlaceholder: '',
-    inputAttributes: {
-      'aria-label': 'Type your message here'
+  Swal.fire({
+    title: 'Bottom drawer 👋',
+    position: 'bottom',
+    showClass: {
+      popup: `
+        animate__animated
+        animate__fadeInUp
+        animate__faster
+      `
     },
-    showCancelButton: true
+    hideClass: {
+      popup: `
+        animate__animated
+        animate__fadeOutDown
+        animate__faster
+      `
+    },
+    grow: 'row',
+    showConfirmButton: false,
+    showCloseButton: true
   })
-  
-  if (text) {
-    Swal.fire(text)
-  }
+  console.log("hiciste click");
 });
 
 //boton corazon
+
 const corazon = document.querySelector("#corazon")
-
-corazon.addEventListener ("click", ()=>{corazon.style.color=`#ff0000`}) 
-corazon.removeEventListener("onchange",()=>{corazon.style.color=`#ffffff`})
-
+corazon.addEventListener ("click", ()=>corazon.classList.toggle(`herart-color`));
 
 
 
@@ -275,7 +282,7 @@ function catalogoDePeliculas(productos) {
                                             <p class = "card-text">Idioma: ${producto.idioma}</p>
                                             
                                             <button data-id="${producto.id}" class="btn btn-primary btncomprar">Comprar</button>
-                                            <button id="btn-infoCards" class="btn btn-info my-3 ${producto.id}">Mas Informacion</button>
+                                            <button id="infoCards${producto.id}" class="btn btn-info infoCards my-3 ">Mas Informacion</button>
                                             
                                         </div>
                                     </div>`;
