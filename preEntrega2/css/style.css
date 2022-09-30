@@ -4,6 +4,19 @@
     box-sizing: border-box;
 }
 
+
+/* estilos del loguin */
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #6a11cb;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+    }
 /*estilos del body*/
 body{
     background-color: black;
@@ -39,6 +52,9 @@ h2{
     margin-right: 20px;
 }
 
+.btn-menu{
+    background: #000;
+}
 .nav-link,
 .nav-link active {
     color: white 
@@ -72,14 +88,34 @@ h2{
 .descripcion{
     opacity: 0.7;
 }
-.boton {
-    border: none;
+
+
+
+/*Estilo de las Cards*/
+.card-peli-titulo{
+    font-weight: bold;
+    color:rgba(231, 7, 7, 0.938);
+    text-align: center;
+
+    
 }
 
-/* carrito de compras*/
+.card-text{
+    font-weight:bold;
+    text-decoration-line: none;
+    border-color: black ;
+    text-align: center;
+}
 
+.card.my-3{
 
+background-color: gray;
+}
 
+/*estilo del boton comprar*/
+.btn btn-primary{
+background-color: firebrick;
+}
 /*Estilos en la seccion formulario*/
 
 .formulario{
@@ -97,4 +133,11 @@ h3{
 #btn-add- {
     color: black;
     background-color: blue;
+
 }
+
+/*boton corazon*/
+
+
+
+

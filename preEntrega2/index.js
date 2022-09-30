@@ -1,6 +1,7 @@
+const precioTotal= document.getElementById("precioTotal");
+
 /* inventario de peliculas disponibles */
 
-/* conectarlos a un carrito */
 
 class Producto {
   constructor(
@@ -30,10 +31,12 @@ let carrito = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   catalogoDePeliculas(listaDePeliculas);
-  
+  if (localStorage.getItem("carrito")) {
+    carrito = JSON.parse(localStorage.getItem("carrito"));
+    verCarrito();
+  }
+
 });
-
-
 
 const listaDePeliculas = [
   new Producto(
@@ -146,34 +149,112 @@ const listaDePeliculas = [
     1200,
     "assets/img/suspenso6.jpg"
   ),
+  new Producto(
+    12,
+    "La proposicion",
+    "romance",
+    "01:45:00",
+    "ingles",
+    "2009",
+    1300,
+    "assets/img/romance4.jpg"
+  ),
 ];
 
+//boton comprar
 document.addEventListener("click", (e) => {
-  /* console.log(e.target); */
-  if (e.target.matches(".btn-primary")) {
-     agregarCarrito(e);
-  }
   
+  if (e.target.matches(".btncomprar")) {
+
+    agregarCarrito(e);
+Swal.fire(
+    'Producto agregado a tu carrito!',
+    'Dale click al boton!',
+    'success'
+  )
+  }
 });
 
-//boton eliminar 
+//boton eliminar
 document.addEventListener("click", (e) => {
-  
   if (e.target.matches(".btn-danger")) {
-  /*  borrarItemCarrito(e); */
-   eliminarDelCarrito(e)
+   
+    eliminarDelCarrito(e);
   }
-  verCarrito()
+});
+//boton Modal Comprar
+
+const button = document.querySelector("#botonModalComprar");
+button.addEventListener("click", () => {
+  Swal.fire({
+    title: "Muchas Gracias por tu compra",
+    text: "La venta fue guardada con el id 123456. Pronto te llegará una confirmación a tu correo electrónico",
+    imageUrl: 'https://unsplash.it/400/200',
+    imageWidth: 400,
+    imageHeight: 200,
+    imageAlt: 'Custom image',
+    confirmButtonText: "Aceptar",
+});
 });
 
-const eliminarDelCarrito = (e) =>{
-  const item =carrito.find((producto)=>producto.id===e)
-  const indice = carrito.indexOf(item)
-  carrito.splice(indice,1)
-}
+//boton Informacion
+
+const botonInfo = document.querySelector("#btn-info");
+botonInfo.addEventListener("click", () => {
+  const { value: text } = Swal.fire({
+    input: 'textarea',
+    inputLabel: 'Informacion',
+    inputPlaceholder: 'Un experimento para solucionar el calentamiento global acabó con la mayoría de vida existente en el planeta. El último tren llamado Snowpiercer (Rompenieves) se mueve en círculos por el mundo, a través de un desierto de hielo y nieve. Los últimos supervivientes de la Tierra se amontonan en sus vagones. El joven Curtis (Chris Evans) iniciará una revolución desde los vagones de cola.',
+    inputAttributes: {
+      'aria-label': 'Type your message here'
+    },
+    showCancelButton: true
+  })
+  
+  if (text) {
+    Swal.fire(text)
+  }
+});
+
+//boton info cards
+
+const botonInfoCards = document.querySelector("#btn-infoCards");
+botonInfoCards.addEventListener("click", () => {
+  const { value: text } = Swal.fire({
+    input: 'textarea',
+    inputLabel: 'Message',
+    inputPlaceholder: '',
+    inputAttributes: {
+      'aria-label': 'Type your message here'
+    },
+    showCancelButton: true
+  })
+  
+  if (text) {
+    Swal.fire(text)
+  }
+});
+
+//boton corazon
+const corazon = document.querySelector("#corazon")
+
+corazon.addEventListener ("click", ()=>{corazon.style.color=`#ff0000`}) 
+corazon.removeEventListener("onchange",()=>{corazon.style.color=`#ffffff`})
 
 
 
+
+// eliminar uno a uno los productos del carrito 
+const eliminarDelCarrito = (e) => {
+  let eventoId=  e.target.dataset.id;
+  eventoId = Number (eventoId)
+  const item = carrito.findIndex((producto) => producto.id === eventoId);
+  carrito.splice(item, 1);
+  badge.innerText=0
+  verCarrito();
+
+  
+};
 
 /* crear una funcion para mostrar las peliculas */
 
@@ -187,31 +268,33 @@ function catalogoDePeliculas(productos) {
                                         <img src= "${producto.img}" class = "img-card-top" alt= "${producto.titulo}"> 
                                         <div class= "carPeli-body">
                                             <h5 class= "card-peli-titulo"> ${producto.titulo}</h5>
-                                            <p class = "card-text">Precio: "${producto.precio}"</p>
-                                            <p class = "card-text">Genero: "${producto.genero}"</p>
-                                            <p class = "card-text">Anio: "${producto.anio}"</p>
-                                            <p class = "card-text">Duracion: "${producto.duracion}"</p> 
-                                            <p class = "card-text">Idioma: "${producto.idioma}"</p>
+                                            <p class = "card-text">Precio: $${producto.precio}</p>
+                                            <p class = "card-text">Genero: ${producto.genero}</p>
+                                            <p class = "card-text">Anio: ${producto.anio}</p>
+                                            <p class = "card-text">Duracion: ${producto.duracion}</p> 
+                                            <p class = "card-text">Idioma: ${producto.idioma}</p>
                                             
-                                            <button data-id="${producto.id}" id="boton-agregar" class="btn btn-primary">Agregar</button>
+                                            <button data-id="${producto.id}" class="btn btn-primary btncomprar">Comprar</button>
+                                            <button id="btn-infoCards" class="btn btn-info my-3 ${producto.id}">Mas Informacion</button>
                                             
                                         </div>
                                     </div>`;
 
     peliculasContainer.appendChild(cardPeli);
+    
+    
   });
 }
 
 //funcion para agregar productos en el carrito
 
 function agregarCarrito(e) {
-  
   const cardNumero = Number(e.target.dataset.id);
   const productoSeleccionado = listaDePeliculas.find(
     (i) => i.id === cardNumero
   );
   const coincidirCard = carrito.findIndex((i) => i.id === cardNumero);
- 
+
   if (coincidirCard === -1) {
     carrito.push(
       new Producto(
@@ -229,18 +312,20 @@ function agregarCarrito(e) {
   } else {
     carrito[coincidirCard].cantidad++;
   }
-  window.localStorage.setItem('carrito', JSON.stringify(carrito));
+  
   verCarrito();
 }
 
 // funcion para ver carrito
 
 function verCarrito() {
-  
-  const seccionCarrito = document.getElementById(`seccionCarrito`);
+  localStorage.setItem("carrito",JSON.stringify(carrito));
+  const seccionCarrito = document.getElementById("modal-container");
   seccionCarrito.textContent = "";
+  precioTotal.textContent= "0"
   carrito.forEach((i) => {
     const div = document.createElement(`div`);
+    total = carrito.reduce((a,b) => a+b.precio*b.cantidad,0)
 
     div.innerHTML += `<li class="list-group-item text-uppercase bg-dark text-white">
     <span class="badge bg-primary rounded-pill align-middle">${
@@ -253,106 +338,77 @@ function verCarrito() {
       <p class="lead mb-0">Total: $<span>${i.cantidad * i.precio}</span></p>
   </div>
   <div>
-      <button class="btn btn-sm btn-success" id= "btn-sumar" >Sumar</button>
-      <button class="btn btn-sm btn-danger" id="btn-eliminar">Restar</button>
-      <button type="button" class="btn btn-link" id = "btn-total">Total</button>
+      <button class="btn btn-sm btn-danger my-2" data-id= "${i.id}">Restar</button>
+     
   </div> </li>`;
 
-  
     seccionCarrito.appendChild(div);
+
+    let badge = document.getElementById("badge");
+    badge.innerText = carrito.length
+      
+    precioTotal.textContent = total
   });
-  
 }
-
-//Eliminar producto del carrito
-
-function borrarItemCarrito(e) {
-  
-  const id = e.target.dataset.id;
- //borramos los productos
- carrito = carrito.filter((carritoId) => {
-  return carritoId !== id;
-});
-
- //volvemos a renderizar
-  verCarrito();
-}
-
-
-//boton total
-
-document.addEventListener("click", (e) => {
-  
-  if (e.target.matches(".btn-link")) {
-  /*  totalCompras(e) */ alert("hola")
-  }
-  verCarrito()
-});
-
-/* function totalCompras() {
-  
-} */
 
 
 
 //vaciar carrito
-
-const botonVaciar = document.getElementById("btn-vaciarCarrito")
-botonVaciar.classList.add (".btn-secondary") 
+const botonVaciar = document.getElementById("vaciar-carrito");
+botonVaciar.classList.add(".btn-secondary");
 botonVaciar.addEventListener("click", (e) => {
-   
-   carrito.length=0
-   verCarrito()
-  });
-
-
+  carrito.length = 0;
+  badge.innerText=0
+  precioTotal.innerText=carrito.reduce((acc,i)=>acc-i.precio,0)
+  verCarrito();
+}); 
 
 //evento del boton enviar formulario
 
+const infoFormulario = [];
 
-let idFormulario = document.getElementById("idFormulario")
-idFormulario.addEventListener ("click", (e) =>{
- localStorage.setItem(`capturarFormulario`, JSON.stringify(idFormulario));
- localStorage.setItem(`capturarFormulario`,JSON.stringify(inputEmail.value))
-})
+const formulario = document.querySelector("#idFormulario");
 
-  //capturar datos del Formulario
-  
-  function capturarFormulario() {
+formulario.addEventListener("submit", (e) => {
+  e.preventDefault();
+  mostrarErrores = document.querySelector("#spanCantidad");
+  mostrarErrores.classList.add("d-none");
+  mostrarErrores.textContent = "";
 
-    let nombre=document.getElementById("inputNombre").value;
-    let email=document.getElementById("inputEmail").value;
-    let telefono=document.getElementById("inputTelefono").value;
-    let mensaje=document.getElementById("exampleFormControlTextarea2").value;
-    
-    if (nombre == ""){
-      alert("Nombre Obligatorio");
-    document.getElementById("inputNombre").focus();
-    } else {
-    }if (email == "")  {
-      alert("Email Obligatorio");
-      document.getElementById("inputEmail").focus();
-    } else {
-    }if (telefono == "") {
-        document.getElementById("inputTelefono").focus();
-    } else {
-    }if (mensaje == "") {
-          document.getElementById("exampleFormControlTextarea2").focus();
-          
-    } else {
-      
-          document.getElementById("inputNombre").value = "";
-          document.getElementById("inputEmail").value = "";
-          document.getElementById("inputTelefono").value = "";
-          document.getElementById("exampleFormControlTextarea2").value = "";
-          document.getElementById("inputNombre").focus();
-    }
-    function capturarFormulario() {
-      let idFormulario = localStorage.getItem(`idFormulario`,email);
-    
-      
-    }
-    capturarFormulario(); 
-   alert ("Gracias por tu compra. Nos pondremos en contacto a través de tu correo electrónico.\n NetMovie")
+  let error = "";
+
+  if (inputNombre.value == "") {
+    error += `El campo Nombre es Obligatorio.<br>`;
   }
-  
+  if (inputEmail.value == "") {
+    error += `El campo email es Obligatorio.<br>`;
+  }
+  if (inputTelefono.value == "") {
+    error += `El campo Telefono es Obligatorio.<br>`;
+  }
+  if (error == "") {
+    const datosFinales = {
+      nombre: inputNombre.value,
+      email: inputEmail.value,
+      telefono: inputTelefono.value,
+      mensaje: exampleFormControlTextarea2.value,
+    };
+    infoFormulario.push(datosFinales);
+
+    localStorage.setItem(
+      "valores_de_los_input",
+      JSON.stringify(infoFormulario)
+    );
+    formulario.reset();
+  } else {
+    mostrarErrores.classList.remove("d-none");
+    mostrarErrores.innerHTML = error;
+  }
+
+  console.log(infoFormulario);
+});
+
+
+
+
+
